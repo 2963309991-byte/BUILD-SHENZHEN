@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1c3044">
+<meta name="description" content="Explore how Shenzhen adapted Hong Kong’s land and planning practices, and test how public land revenue can shape a city.">
+<title>BUILD SHENZHEN</title>
+<link rel="icon" href="assets/icon.png">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="experience.css">
+<link rel="stylesheet" href="runner.css">
+<link rel="stylesheet" href="runner-lobby.css">
+<link rel="stylesheet" href="story.css">
+<link rel="stylesheet" href="desk.css">
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="origins.css">
+<link rel="stylesheet" href="research.css">
+<script src="art.js" defer></script>
+<script src="language.js" defer></script>
+<script src="audio.js" defer></script>
+<script src="sprites.js" defer></script>
+<script src="dialogue.js" defer></script>
+<script src="map.js" defer></script>
+<script src="runner-core.js" defer></script>
+<script src="runner-boss.js" defer></script>
+<script src="runner.js" defer></script>
+<script src="runner-lobby-art.js" defer></script>
+<script src="story-data.js" defer></script>
+<script src="story.js" defer></script>
+<script src="desk-art.js" defer></script>
+<script src="harbor.js" defer></script>
+<script src="home.js" defer></script>
+<script src="origins-art.js" defer></script>
+<script src="origins.js" defer></script>
+<script src="game.js" defer></script>
+<script src="tour.js" defer></script>
+</head>
+<body data-screen="home">
+<header class="top">
+  <a class="brand" href="#home" data-go="home" data-label="homeLabel"><span class="brand-icon" aria-hidden="true">‹</span><span data-text="backHome"></span></a>
+  <div class="top-tools">
+    <nav data-label="navLabel">
+      <button type="button" data-go="play" data-text="play"></button>
+      <button type="button" data-go="archive" data-text="map"></button>
+      <button type="button" data-go="run" data-text="run"></button>
+      <button type="button" data-go="sources" data-text="sources"></button>
+    </nav>
+    <div class="language" role="group" data-label="language"><button type="button" lang="en" aria-label="English" data-lang="en" aria-pressed="true">EN</button><button type="button" lang="zh-CN" aria-label="简体中文" data-lang="zh" aria-pressed="false">中文</button></div>
+    <details id="sound-settings">
+      <summary><span aria-hidden="true">♫</span><span data-text="audioTitle"></span></summary>
+      <div class="sound-panel">
+        <button type="button" data-audio-channel="music" aria-pressed="true"><span data-text="audioMusic"></span><span class="sound-switch" aria-hidden="true"></span></button>
+        <button type="button" data-audio-channel="effects" aria-pressed="true"><span data-text="audioEffects"></span><span class="sound-switch" aria-hidden="true"></span></button>
+        <p id="audio-status"></p>
+      </div>
+    </details>
+  </div>
+</header>
+<canvas class="header-comet" aria-hidden="true"></canvas>
+<main id="main">
+<section id="home" class="screen" hidden>
+  <div class="home-scene" aria-hidden="true">
+    <canvas id="hero-art" width="1440" height="720"></canvas>
+  </div>
+  <div class="home-content">
+    <p class="home-period"><span aria-hidden="true"></span><span data-text="homeSetting"></span></p>
+    <h1 tabindex="-1">BUILD<br><em>SHENZHEN</em></h1>
+    <p class="home-subtitle" data-text="homeSubtitle"></p>
+    <nav class="home-menu" data-label="navLabel">
+      <button type="button" data-go="play"><span class="menu-star" aria-hidden="true"></span><span data-text="homeStart"></span></button>
+      <button type="button" data-go="archive"><span class="menu-star" aria-hidden="true"></span><span data-text="goDesk"></span></button>
+      <button type="button" data-go="run"><span class="menu-star" aria-hidden="true"></span><span data-text="homeRun"></span></button>
+    </nav>
+  </div>
+  <div id="harbor-coins" hidden></div>
+  <div id="home-progress" hidden>
+    <span data-text="homeLoading"></span>
+    <progress max="100" value="0" data-label="homeLoading"></progress>
+  </div>
+  <div class="home-foot">
+    <p data-text="homeArtwork"></p>
+    <button id="home-skip" type="button" data-text="homeSkip" hidden></button>
+    <button id="home-motion" type="button" aria-pressed="false"></button>
+  </div>
+</section>
+<section id="play" class="screen inner" hidden></section>
+<section id="run" class="screen inner" hidden>
+  <div class="runner-lobby" id="runner-lobby">
+    <canvas id="runner-lobby-art" width="560" height="320" aria-hidden="true"></canvas>
+    <div class="runner-lobby-shade" aria-hidden="true"></div>
+    <div class="runner-lobby-tools">
+      <button type="button" data-run-action="scores" data-text="runnerScores"></button>
+      <button type="button" data-run-action="tutorial" data-text="runnerTutorial"></button>
+      <button type="button" data-run-action="avatar" data-text="avatar"></button>
+    </div>
+    <div class="runner-lobby-copy">
+      <p class="eyebrow" data-text="runnerCourse"></p>
+      <h1 tabindex="-1" data-text="runTitle"></h1>
+      <p class="runner-lobby-intro" data-text="runIntro"></p>
+  <div class="runner-modes" role="group" data-label="selectMode">
+    <button type="button" data-run-mode="level" aria-pressed="true"><strong data-text="modeLevel"></strong><small data-text="modeLevelAbout"></small></button>
+    <button type="button" data-run-mode="timed" aria-pressed="false"><strong data-text="modeTimed"></strong><small data-text="modeTimedAbout"></small></button>
+    <button type="button" data-run-mode="endless" aria-pressed="false"><strong data-text="modeEndless"></strong><small data-text="modeEndlessAbout"></small></button>
+  </div>
+      <button type="button" class="primary runner-lobby-start" data-run-action="lobby-start"><span aria-hidden="true">▶</span> <span data-text="runnerStartGame"></span></button>
+    </div>
+  </div>
+  <dialog id="runner-setup" class="runner-setup" aria-labelledby="runner-setup-title">
+    <button type="button" class="runner-setup-close" data-run-action="setup-close" data-label="runnerSetupClose">×</button>
+    <p class="eyebrow" id="runner-setup-step"></p>
+    <h2 id="runner-setup-title" tabindex="-1"></h2>
+    <div id="runner-setup-avatar">
+      <div class="avatar-layout">
+        <div class="avatar-preview"><canvas id="avatar-preview" width="28" height="28" role="img" data-label="avatarPreview"></canvas></div>
+        <div class="avatar-options" id="avatar-options"></div>
+      </div>
+    </div>
+    <div id="runner-setup-guide" hidden></div>
+    <button type="button" class="primary runner-setup-next" data-run-action="setup-next"></button>
+  </dialog>
+  <dialog id="runner-scores" class="runner-setup runner-scores" aria-labelledby="runner-scores-title">
+    <header class="runner-scores-heading">
+      <h2 id="runner-scores-title" data-text="runnerScores"></h2>
+      <button type="button" class="runner-setup-close" data-run-action="scores-close" data-label="runnerSetupClose">×</button>
+    </header>
+    <div id="runner-score-tables"></div>
+  </dialog>
+  <div id="runner-game" hidden>
+    <div class="runner-game-bar"><button type="button" class="secondary" data-run-action="explore-modes" data-text="runnerModesBack"></button></div>
+  <aside id="runner-brief" class="runner-brief" aria-labelledby="runner-brief-title"></aside>
+  <div class="runner-frame" tabindex="-1">
+    <div class="runner-hud">
+      <div class="runner-stage"><span id="runner-phase"></span><strong id="runner-place"></strong></div>
+      <div class="runner-treasury"><span class="hud-coin" aria-hidden="true"></span><div><span data-text="coins" id="runner-coins-label"></span><strong id="runner-coins">0 / 42</strong></div></div>
+      <div id="runner-clock" class="runner-clock" hidden><span id="runner-clock-label"></span><strong id="runner-clock-value"></strong></div>
+      <div class="runner-speed"><span data-text="speed"></span><strong id="runner-speed"></strong></div>
+    </div>
+    <div id="runner-inventory" class="runner-inventory" data-label="inventory"></div>
+    <div id="boss-hud" class="boss-hud" hidden></div>
+    <div class="runner-field" id="runner-field">
+      <canvas id="runner-art" width="384" height="196" aria-hidden="true"></canvas>
+      <div id="runner-confetti" class="runner-confetti" aria-hidden="true"></div>
+      <div class="runner-overlay" id="runner-overlay">
+        <div id="runner-overlay-copy"></div>
+        <div class="runner-overlay-actions" id="runner-overlay-actions"></div>
+      </div>
+      <p id="runner-event" class="runner-event" role="status"></p>
+    </div>
+    <div class="runner-controls">
+      <p data-text="runHelp" id="runner-help"></p>
+      <div><button class="secondary" type="button" data-run-action="finish" data-text="endRound" hidden></button><button class="secondary" type="button" data-run-action="pause" data-text="pause" disabled></button><button class="secondary" type="button" data-run-action="slide" data-text="slide" disabled></button><button class="primary" type="button" data-run-action="jump" data-text="jump" disabled></button></div>
+    </div>
+    <div id="boss-controls" class="boss-controls" hidden></div>
+  </div>
+  <details class="runner-guide"><summary data-text="powerGuide"></summary><dl id="runner-manual"></dl></details>
+  <ol class="runner-ledger" id="runner-ledger" data-label="ledger"></ol>
+  <p class="runner-disclaimer" data-text="runModel"></p>
+  </div>
+</section>
+<section id="archive" class="screen inner story" hidden>
+  <section id="story-desk" class="archive-desk" aria-labelledby="desk-title">
+    <canvas id="desk-scene" width="720" height="440" aria-hidden="true"></canvas>
+    <div class="desk-heading">
+      <p data-text="storyPair"></p>
+      <h1 id="desk-title" tabindex="-1" data-text="map"></h1>
+      <p data-text="deskHint"></p>
+    </div>
+    <nav class="desk-objects" data-label="storyNav">
+      <button type="button" class="desk-object desk-atlas" data-desk-open="atlas">
+        <span class="desk-art"><canvas width="220" height="152" aria-hidden="true"></canvas></span><span class="desk-tag" data-text="storyAtlas"></span>
+      </button>
+      <button type="button" class="desk-object desk-transfer" data-desk-open="transfer">
+        <span class="desk-art"><canvas width="158" height="132" aria-hidden="true"></canvas></span><span class="desk-tag" data-text="storyTransfer"></span>
+      </button>
+      <button type="button" class="desk-object desk-compare" data-desk-open="compare">
+        <span class="desk-art"><canvas width="150" height="146" aria-hidden="true"></canvas></span><span class="desk-tag" data-text="storyCompare"></span>
+      </button>
+      <button type="button" class="desk-object desk-budget" data-desk-open="budget">
+        <span class="desk-art"><canvas width="128" height="104" aria-hidden="true"></canvas><i class="desk-screen" aria-hidden="true"></i></span><span class="desk-tag" data-text="storyBudget"></span>
+      </button>
+    </nav>
+    <div id="desk-verdict-cat" class="verdict-cat" hidden>
+      <button type="button" class="verdict-cat-bubble" data-desk-open="verdict">
+        <span class="verdict-cat-count">4/4</span>
+        <span class="verdict-cat-line" data-text="verdictCatLine"></span>
+        <span class="verdict-cat-action"><span class="verdict-arrow" aria-hidden="true">➜</span><span data-text="verdictNudge"></span></span>
+      </button>
+      <canvas width="52" height="32" aria-hidden="true"></canvas>
+    </div>
+    <aside class="research-note" aria-labelledby="core-argument">
+      <div><h2 id="core-argument" data-text="coreArgument"></h2><p data-text="deskThesis"></p></div>
+      <div class="research-note-link"><span data-text="researchChain"></span><button id="desk-verdict" type="button" data-desk-open="verdict"><span id="desk-verdict-arrow" class="verdict-arrow" aria-hidden="true" hidden>➜</span><span data-text="viewVerdict"></span><span id="desk-progress" aria-live="polite"></span></button></div>
+    </aside>
+  </section>
+  <nav class="desk-backbar" id="desk-backbar" data-label="storyNav" hidden>
+    <button type="button" class="secondary" data-desk-open="desk" data-text="deskReturn"></button>
+    <div id="module-verdict-cat" class="verdict-cat" hidden>
+      <button type="button" class="verdict-cat-bubble" data-desk-open="verdict">
+        <span class="verdict-cat-count">4/4</span>
+        <span class="verdict-cat-line" data-text="verdictCatLine"></span>
+        <span class="verdict-cat-action"><span class="verdict-arrow" aria-hidden="true">➜</span><span data-text="verdictNudge"></span></span>
+      </button>
+      <canvas width="52" height="32" aria-hidden="true"></canvas>
+    </div>
+  </nav>
+  <section id="story-atlas" class="story-atlas" data-atlas-mode="full" aria-labelledby="atlas-title" data-desk-panel="atlas" hidden>
+    <header class="atlas-intro"><div><p class="eyebrow" data-text="storyPeriod"></p><h1 tabindex="-1" data-text="storyTitle"></h1></div><p data-text="storyThesis"></p></header>
+    <div class="atlas-stage">
+      <div class="atlas-map">
+        <div class="atlas-toolbar">
+          <div class="atlas-title-group"><h2 id="atlas-title" tabindex="-1" data-text="storyAtlas"></h2><span data-text="atlasYears"></span></div>
+          <button type="button" id="atlas-return" data-text="atlasReturn" hidden></button>
+          <div id="map-layers" class="story-switches" role="group" data-label="storyLayers">
+            <button type="button" data-layer="transfer" aria-pressed="true" data-text="layerTransfer"></button>
+            <button type="button" data-layer="economy" aria-pressed="false" data-text="layerEconomy"></button>
+          </div>
+        </div>
+        <div class="map-box" id="map-view" tabindex="0" role="region" data-label="mapViewport" aria-describedby="map-caption">
+          <div class="map-world" id="map-world">
+            <canvas id="map-art" width="420" height="306" aria-hidden="true"></canvas>
+            <canvas id="map-motion" width="420" height="306" aria-hidden="true"></canvas>
+            <span class="map-label north" aria-hidden="true">N<br>✦</span>
+            <span class="map-label shenzhen" aria-hidden="true" data-text="shenzhen"></span>
+            <span class="map-label hk" aria-hidden="true" data-text="hongKong"></span>
+            <span class="map-label bay" aria-hidden="true" data-text="bay"></span>
+            <span class="map-label national" aria-hidden="true" data-text="atlasNational"></span>
+            <div id="pins" data-label="mapStops"></div>
+          </div>
+          <div class="map-controls" role="group" data-label="mapControls">
+            <button type="button" data-map-action="out" data-label="zoomOut">−</button>
+            <output id="map-scale" data-label="zoomLevel">100%</output>
+            <button type="button" data-map-action="in" data-label="zoomIn">+</button>
+            <button type="button" data-map-action="reset" data-text="reset" data-label="resetMap"></button>
+          </div>
+        </div>
+        <div class="atlas-caption"><p id="map-legend"></p><p id="map-caption" data-text="atlasLegend"></p></div>
+      </div>
+      <article id="record" class="record" data-label="selectedRecord" hidden></article>
+    </div>
+    <div class="story-track">
+      <div class="atlas-toolbar"><h2 data-text="timeline"></h2><button type="button" id="timeline-play" aria-pressed="false" data-text="storyReplay"></button></div>
+      <div class="timeline" id="timeline" data-label="timeline"></div>
+    </div>
+    <aside class="research-next"><p data-text="atlasNext"></p><button type="button" data-desk-open="transfer" data-text="openBook"></button></aside>
+  </section>
+  <section id="story-transfer" class="story-section desk-reader" aria-labelledby="transfer-title" data-desk-panel="transfer" hidden>
+    <p class="eyebrow" data-text="storyTransfer"></p>
+    <h2 id="transfer-title" tabindex="-1" data-text="transferTitle"></h2>
+    <p data-text="transferLead"></p>
+    <div class="story-switches case-switch" id="transfer-cases" role="group" data-label="storyCases"></div>
+    <div class="transfer-book">
+      <ol class="transfer-flow" id="transfer-flow"></ol>
+      <div id="transfer-verdict" class="transfer-verdict"></div>
+      <div class="book-navigation">
+        <button type="button" data-book-turn="-1" data-text="bookPrevious"></button>
+        <output id="book-page" aria-live="polite"></output>
+        <button type="button" data-book-turn="1" data-text="bookNext"></button>
+      </div>
+    </div>
+    <aside class="research-next"><p data-text="transferNext"></p><button type="button" data-desk-open="compare" data-text="storyCompare"></button></aside>
+  </section>
+  <section id="story-compare" class="story-section desk-reader" aria-labelledby="compare-title" data-desk-panel="compare" hidden>
+    <p class="eyebrow" data-text="storyCompare"></p>
+    <h2 id="compare-title" tabindex="-1" data-text="compareTitle"></h2>
+    <div class="story-switches case-switch" id="compare-topics" role="group" data-label="storyCompare"></div>
+    <div id="comparison"></div>
+    <aside class="research-next"><p data-text="compareNext"></p><button type="button" data-desk-open="budget" data-text="storyBudget"></button></aside>
+  </section>
+  <section id="story-budget" class="story-section desk-reader" aria-labelledby="budget-title" data-desk-panel="budget" hidden>
+    <p class="eyebrow" data-text="storyBudget"></p>
+    <h2 id="budget-title" tabindex="-1" data-text="budgetTitle"></h2>
+    <p data-text="budgetLead"></p>
+    <div id="budget-model"></div>
+    <aside class="research-next"><p data-text="budgetNext"></p><button type="button" data-desk-open="verdict" data-text="viewVerdict"></button></aside>
+  </section>
+  <section id="story-verdict" class="story-section desk-reader research-verdict" aria-labelledby="verdict-title" data-desk-panel="verdict" hidden>
+    <p class="eyebrow" data-text="storyPeriod"></p>
+    <h2 id="verdict-title" tabindex="-1" data-text="verdictTitle"></h2>
+    <div id="verdict-body"></div>
+  </section>
+  <div class="story-footer">
+    <button class="secondary" data-go="sources" data-text="viewSources"></button>
+    <button class="secondary" data-go="play" data-text="play"></button>
+    <button class="primary" data-go="run" data-text="bridgeAction"></button>
+    <button class="secondary" data-guide-open data-text="guideJump"></button>
+  </div>
+</section>
+<section id="sources" class="screen inner sources" hidden></section>
+</main>
+
+<dialog id="tour" aria-labelledby="tour-title" aria-describedby="tour-copy">
+  <div id="tour-spotlight" aria-hidden="true"></div>
+  <div id="tour-card">
+    <div class="guide-top"><p data-text="tourLabel"></p><div class="guide-languages" data-label="language" role="group"><button type="button" data-lang="en" aria-label="English">EN</button><button type="button" data-lang="zh" aria-label="简体中文">中文</button></div></div>
+    <canvas id="guide-cat" width="52" height="32" aria-hidden="true"></canvas>
+    <p id="tour-step" class="eyebrow"></p>
+    <h2 id="tour-title" tabindex="-1"></h2>
+    <p id="tour-copy"></p>
+    <div class="tour-actions">
+      <button type="button" id="tour-skip" class="secondary" data-text="tourSkip"></button>
+      <div><button type="button" id="tour-back" class="secondary" data-text="guidePrevious"></button>
+      <button type="button" id="tour-next" class="primary"></button></div>
+    </div>
+  </div>
+</dialog>
+</body>
+</html>

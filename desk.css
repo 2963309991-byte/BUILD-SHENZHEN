@@ -1,0 +1,119 @@
+/* Overhead research desk */
+.archive-desk{position:relative;isolation:isolate;aspect-ratio:720/440;overflow:hidden;
+  border:1px solid #473d37;background:#294951;box-shadow:5px 6px #1c30442e}
+#desk-scene{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;image-rendering:pixelated}
+.desk-heading{position:absolute;z-index:2;top:6%;left:6.4%;color:#fff1d4;text-shadow:2px 2px #3b282b}
+.desk-heading h1{font:clamp(19px,3.5vw,48px)/1.25 var(--pixel);margin:5px 0}
+.desk-heading p{font-weight:700;font-size:clamp(11px,1.25vw,17px);line-height:1.35}
+.desk-heading p:first-child{color:#ffdda0;text-transform:uppercase;letter-spacing:.09em;font-size:clamp(9px,.9vw,13px)}
+.desk-objects{position:absolute;inset:0;perspective:1100px}
+.desk-object{position:absolute;transform:translate(-50%,-50%);border:0;color:#243747;background:none;display:grid;justify-items:center;gap:0;
+  padding:0;font-weight:750;line-height:1.15;transition:filter .2s}
+.desk-object:hover,.desk-object:focus-visible{filter:drop-shadow(0 0 7px #fce2a67a);z-index:5}
+.desk-object:focus-visible{outline:2px solid #ffe8b1;outline-offset:2px}
+.desk-art{position:relative;display:grid;place-items:center;width:100%;transition:transform .20s ease}
+.desk-art canvas{display:block;width:100%;height:auto;image-rendering:pixelated}
+.desk-object:hover .desk-art,.desk-object:focus-visible .desk-art{transform:translateY(-5px)}
+.desk-tag{background:#ead8ac;border:1px solid #998360;box-shadow:3px 3px #1f343990;padding:.46em .68em;color:#21394a;
+  white-space:nowrap;font-size:clamp(12px,1.45vw,19px)}
+.desk-object:hover .desk-tag,.desk-object:focus-visible .desk-tag{background:#f6e1ad}
+.desk-atlas{left:50%;top:49%;width:32%}
+.desk-atlas .desk-tag{margin-top:-8%;z-index:1}
+.desk-transfer{left:22%;top:43%;width:23%}
+.desk-transfer .desk-tag{margin-top:-12%;z-index:1}
+.desk-compare{left:76%;top:43%;width:21%}
+.desk-compare .desk-tag{margin-top:-10%;z-index:1}
+.desk-budget{left:71%;top:77%;width:20%}
+.desk-budget .desk-tag{margin-top:-9%;z-index:1}
+
+/* Focus the object in the viewport before revealing its contents. */
+.desk-zoom{position:fixed;inset:0;z-index:110;display:grid;place-items:center;
+  isolation:isolate;overflow:hidden;background:#111f31c9;animation:desk-backdrop .44s ease-out both}
+.desk-zoom .desk-art{width:var(--object-width);height:var(--object-height);transition:none}
+.desk-zoom .desk-art canvas{grid-area:1/1}
+.desk-zoom[data-object="atlas"] .desk-art::before,.desk-zoom[data-object="atlas"] .desk-art::after,
+.desk-zoom[data-object="transfer"] .desk-art::before,.desk-zoom[data-object="transfer"] .desk-art::after,
+.desk-screen{content:"";position:absolute;pointer-events:none;opacity:0}
+.desk-zoom[data-object="atlas"] .desk-art::before,.desk-zoom[data-object="atlas"] .desk-art::after{
+  top:13%;width:40%;height:70%;background:
+  repeating-linear-gradient(34deg,transparent 0 12%,#e9dbad95 13% 15%,transparent 16% 20%),
+  linear-gradient(12deg,#507e8c 35%,#91af99 37% 77%,#638e81 78%);
+  border:4px solid #dbca9e;box-shadow:3px 4px #22384f60}
+.desk-zoom[data-object="atlas"] .desk-art::before{right:50%;transform-origin:100% 50%}
+.desk-zoom[data-object="atlas"] .desk-art::after{left:50%;transform-origin:0 50%}
+.desk-zoom[data-object="atlas"][data-phase] .desk-art canvas{animation:desk-paper-base .75s ease both}
+.desk-zoom[data-object="atlas"][data-phase] .desk-art::before{animation:desk-left-fold .8s ease-out both}
+.desk-zoom[data-object="atlas"][data-phase] .desk-art::after{animation:desk-right-fold .78s .09s ease-out both}
+.desk-zoom[data-object="transfer"] .desk-art::before,.desk-zoom[data-object="transfer"] .desk-art::after{
+  top:15%;height:68%;width:46%;background:
+  repeating-linear-gradient(0deg,transparent 0 12px,#9a946c60 13px 14px),
+  linear-gradient(90deg,#dfcba4,#f7eccf 18% 86%,#ddc9a4);
+  border:4px solid #617b70;box-shadow:3px 4px #172f41}
+.desk-zoom[data-object="transfer"] .desk-art::before{left:50%;transform-origin:left center}
+.desk-zoom[data-object="transfer"] .desk-art::after{left:50%;transform-origin:left center}
+.desk-zoom[data-object="transfer"][data-phase] .desk-art canvas{animation:desk-paper-base .72s ease both}
+.desk-zoom[data-object="transfer"][data-phase] .desk-art::before{animation:desk-paper-base .89s reverse ease both}
+.desk-zoom[data-object="transfer"][data-phase] .desk-art::after{animation:desk-cover .89s ease-in-out both}
+.desk-zoom[data-object="compare"][data-phase] canvas{animation:desk-magnify .68s cubic-bezier(.5,.06,.32,.97) both}
+.desk-zoom[data-object="budget"][data-phase] canvas{animation:desk-cash .94s ease-in both}
+.desk-screen{inset:11% 17% 19%;border:5px solid #253f4b;
+  box-shadow:0 0 0 2px #8fac96,0 0 25px #aeead66b,inset 0 0 10px #63b5a45c;background:
+  repeating-linear-gradient(#65b2a330 0 1px,transparent 1px 4px),linear-gradient(160deg,#356272,#1a353d)}
+.desk-zoom[data-object="budget"][data-phase] .desk-screen{animation:desk-terminal .94s ease-out both}
+@keyframes desk-backdrop{from{background:#111f3100}to{background:#111f31c9}}
+@keyframes desk-left-fold{0%{opacity:0;transform:perspective(350px) rotateY(100deg)}17%{opacity:1}100%{opacity:1;transform:perspective(350px) rotateY(0) translateX(-12%)}}
+@keyframes desk-right-fold{0%{opacity:0;transform:perspective(350px) rotateY(-100deg)}17%{opacity:1}100%{opacity:1;transform:perspective(350px) rotateY(0) translateX(12%)}}
+@keyframes desk-paper-base{0%,24%{opacity:1}100%{opacity:0}}
+@keyframes desk-cover{0%{opacity:0;transform:perspective(490px) rotateY(16deg)}25%{opacity:1}100%{opacity:1;transform:perspective(490px) rotateY(-180deg)}}
+@keyframes desk-magnify{50%{transform:translate(5%,9%) scale(1.3)}100%{transform:translate(19%,55%) scale(6);opacity:0}}
+@keyframes desk-cash{55%,100%{opacity:0;transform:scale(.05)}}
+@keyframes desk-terminal{0%,37%{opacity:0;transform:scale(.1,.04)}62%{opacity:1;transform:scale(1,.08)}100%{opacity:1;transform:scale(1.72,1.25)}}
+
+.desk-backbar{padding-bottom:15px}
+.desk-backbar button{background:#e1dec8;border-color:#95a08a}
+.story-atlas .atlas-intro{grid-row:1;grid-column:1/-1;display:grid;grid-template-columns:1.15fr 1fr;gap:20px;align-items:center;padding-bottom:10px}
+.story-atlas .atlas-intro h1{font:clamp(17px,2.2vw,32px)/1.38 var(--pixel);margin-top:6px}
+.story-atlas .atlas-intro>p{border-left:3px solid #9a8262;padding-left:14px}
+.story-atlas:not([hidden]){grid-template-areas:"intro intro" "map record" "track record";grid-template-rows:auto auto 1fr}
+.desk-reader{margin-top:0;padding:15px clamp(11px,3vw,35px) 24px;background:#f7efdd;box-shadow:4px 4px #485e5444;animation:desk-reader-in .35s ease-out both}
+@keyframes desk-reader-in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.transfer-book{position:relative;padding:10px 10px 5px;background:#30515a;border:1px solid #192f40;box-shadow:4px 5px #54493648}
+.transfer-book .transfer-flow{grid-template-columns:repeat(2,minmax(0,1fr));gap:0;min-height:222px}
+.transfer-book .transfer-flow li,.transfer-book .transfer-flow .transfer-origin{color:var(--navy);background:#f5e7c4;
+  box-shadow:inset 0 -5px #c9b384;border:1px solid #bcaa87;padding:clamp(12px,2vw,24px);padding-bottom:30px}
+.transfer-book .transfer-flow li:nth-child(odd){background:linear-gradient(90deg,#ece1c7 0%,#f7ecd1 13%,#f7ecd1 88%,#e0cd9f 100%)}
+.transfer-book .transfer-flow li:nth-child(even){background:linear-gradient(90deg,#dbca9e,#f4e8cb 13%,#f4e8cb 93%,#eadab3)}
+.transfer-book .transfer-flow li::after{display:none}
+.transfer-book .transfer-origin a{color:var(--green)}
+.transfer-book .transfer-origin .eyebrow{color:#466e62}
+.book-folio{position:absolute;bottom:7px;right:13px;color:#655945;font-variant-numeric:tabular-nums}
+.transfer-book .transfer-verdict{margin:0;background:#e5dfc1;border-left:3px solid #85a592}
+.book-navigation{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 3px;color:#f5e5bc}
+.book-navigation button{border:1px solid #ae9c75;background:#eddeba;color:#213b47;min-height:39px;padding:4px 9px;font-weight:700;font-size:.9rem}
+.book-navigation button:disabled{opacity:.57;cursor:default}
+.book-navigation output{white-space:nowrap;font-variant-numeric:tabular-nums}
+#story-compare .compare-grid article{background:#f9f3e1}
+#story-compare .compare-grid article:first-child{border-top:4px solid #527a8c}
+#story-budget #budget-model{padding:5px 9px 10px;background:#243c48;color:#d4e2cd;border:2px solid #526f70;box-shadow:inset 0 0 0 2px #132e3d}
+#story-budget .budget-workbench{background:#e7ead7;color:var(--navy)}
+#story-budget .budget-note{color:#d9e7d3;padding:3px 6px}
+@media(max-width:760px){
+  .story-atlas:not([hidden]){grid-template-areas:"intro" "map" "track";grid-template-rows:auto}
+  .story-atlas[data-atlas-mode="detail"]:not([hidden]){grid-template-areas:"intro" "map" "record" "track"}
+  .story-atlas .atlas-intro{grid-template-columns:1fr;gap:7px}
+  .story-atlas .atlas-intro>p{font-size:.9rem}
+  .archive-desk{aspect-ratio:5/6}
+  .desk-heading{top:6%;left:7%}
+  .desk-transfer{left:24%;top:37%;width:35%}
+  .desk-compare{left:79%;top:34%;width:31%}
+  .desk-atlas{left:52%;top:59%;width:54%}
+  .desk-budget{left:69%;top:83%;width:34%}
+}
+@media(max-width:480px){
+  .archive-desk{aspect-ratio:4/5}
+  .transfer-book .transfer-flow{grid-template-columns:minmax(0,1fr)}
+}
+@media(prefers-reduced-motion:reduce){
+  .desk-reader{animation:none}
+  .desk-art,.desk-object{transition:none}
+}

@@ -1,0 +1,85 @@
+#run.inner{max-width:none;padding:0}
+.runner-lobby{position:relative;display:grid;align-items:center;isolation:isolate;overflow:hidden;
+  min-height:calc(100svh - 68px);color:#faebcd;background:#192b45}
+#runner-lobby-art,.runner-lobby-shade{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+#runner-lobby-art{object-fit:cover;object-position:70% 58%;image-rendering:pixelated}
+.runner-lobby-shade{background:linear-gradient(90deg,#101d31f5 0%,#13223de8 22%,#142339a6 43%,transparent 71%),
+  linear-gradient(0deg,#111f3490,transparent 42%)}
+.runner-lobby-tools{position:absolute;top:clamp(17px,3vw,32px);right:max(5.4vw,20px);display:flex;gap:9px}
+.runner-lobby-tools button{color:#f8e8c7;background:#1c3044e8;border:1px solid #799a9a;
+  min-height:40px;padding:5px 12px;font-weight:700;box-shadow:3px 3px #101a2a70}
+.runner-lobby-tools button:hover{border-color:#efc68d;background:#314b62}
+.runner-lobby-copy{width:min(52vw,650px);margin-left:max(5.4vw,20px);padding:94px 0 80px}
+.runner-lobby-copy .eyebrow{color:#a8d0c2}
+#run .runner-lobby h1{color:#fce4b8;font-size:clamp(24px,3.35vw,49px);line-height:1.32;margin:14px 0 9px;text-shadow:4px 4px #101c30}
+.runner-lobby-intro{color:#f4e5cb;max-width:54ch;font-size:clamp(.92rem,1.36vw,1.15rem);margin-bottom:23px}
+.runner-lobby .runner-modes{gap:7px;margin-bottom:17px}
+.runner-lobby .runner-modes button{padding:9px 10px;min-height:68px;background:#223b52dc;color:#f9ebcf;border-color:#789694;box-shadow:3px 3px #12243790}
+.runner-lobby .runner-modes button:hover{border-color:#f0ce92}
+.runner-lobby .runner-modes button[aria-pressed=true]{background:#efd09b;color:#1b3447;border-color:#fce2ae;box-shadow:inset 0 -3px #b68454,3px 3px #102437}
+.runner-lobby .runner-modes small{color:#dde4d7;font-size:.77rem}
+.runner-lobby .runner-modes button[aria-pressed=true] small{color:#364b4a}
+.runner-lobby-start{min-height:49px;padding:8px 21px;display:inline-flex;gap:11px;align-items:center}
+.runner-lobby-start span:first-child{font-size:.9em}
+#runner-game{max-width:1120px;margin:auto;padding:24px max(4vw,14px) 30px}
+.runner-game-bar{margin-bottom:12px}
+.runner-frame:focus{outline:none}
+
+.runner-setup{width:min(95vw,650px);max-height:88svh;overflow:auto;border:2px solid #456d76;
+  padding:clamp(15px,3vw,27px);background:#f9edd6;color:#1a3348;box-shadow:7px 7px #142b40aa}
+.runner-setup::backdrop{background:#101d32c7}
+.runner-setup h2{font-size:clamp(1.3rem,3vw,1.8rem);margin:0 32px 13px 0;line-height:1.25}
+.runner-setup h2:focus{outline:none}
+.runner-setup .eyebrow{color:#52716e;min-height:1em}
+.runner-setup-close{position:absolute;right:12px;top:12px;background:#f2ddb6;color:#1b3a4d;border:1px solid #a08963;
+  width:38px;height:37px;font-size:1.35rem;line-height:1}
+.runner-setup-next{display:block;margin:17px 0 1px auto}
+.runner-guide-goal{margin-bottom:12px}
+.runner-guide-moves{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.runner-guide-moves article{background:#e4e7d1;border:1px solid #a6b597;padding:8px 11px}
+.runner-guide-moves h3,#runner-setup-guide>h3{font-size:1rem;line-height:1.25;margin-bottom:4px}
+.runner-guide-moves kbd{display:inline-block;margin-bottom:5px;padding:1px 6px;background:#29465b;color:#fff0cd;font:700 .85rem monospace}
+.runner-guide-moves p,.runner-hazards{font-size:.9rem;line-height:1.4}
+.runner-hazards{list-style:none;padding:0;margin:5px 0 12px;display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.runner-hazards li{display:flex;gap:5px;align-items:center;padding:4px 5px;background:#f2e2c4;border:1px solid #c9b693}
+.runner-hazards canvas{width:32px;height:auto;image-rendering:pixelated;flex:none}
+.runner-guide-tip{background:#27495a;color:#f4e5bd;padding:7px 10px;font-size:.92rem}
+@media(max-width:760px){
+  .runner-lobby{min-height:calc(100svh - 92px);align-items:start}
+  .runner-lobby-copy{width:auto;margin:0 max(4vw,18px);padding:78px 0 185px}
+  #runner-lobby-art{object-position:75% bottom}
+  .runner-lobby-shade{background:linear-gradient(180deg,#14223af4 6%,#162b42c7 47%,#172c4240 68%,transparent 83%)}
+  .runner-lobby-tools{top:14px;right:max(4vw,18px)}
+  .runner-lobby .runner-modes button{min-height:65px;padding:7px 6px}
+  .runner-lobby .runner-modes small{font-size:.72rem}
+}
+@media(max-width:420px){
+  .runner-guide-moves,.runner-hazards{grid-template-columns:1fr}
+}
+
+.runner-lobby-tools{max-width:calc(100% - 30px);justify-content:flex-end;flex-wrap:wrap}
+#run[data-status="countdown"] .runner-overlay{background:#14283a88}
+#run[data-status="countdown"] #runner-overlay-copy{color:#fff1d3;background:#1d3448eb;border:1px solid #d3af78;
+  box-shadow:4px 4px #14293f90;padding:10px clamp(12px,3vw,32px);max-width:min(95%,485px)}
+#run[data-status="countdown"] #runner-overlay-copy .eyebrow{color:#b7ccba;margin-bottom:4px}
+#run[data-status="countdown"] #runner-overlay-copy h2{font-size:clamp(.9rem,2.3vw,1.35rem);line-height:1.3}
+.runner-count{display:block;margin:8px auto 0;color:#ffd58d;font:clamp(27px,5.8vw,64px)/1.24 var(--pixel);text-shadow:3px 3px #815c3c}
+.runner-record-banner{margin:0 0 9px;background:#f2d18e;color:#5c3c26;border:1px solid #b7773e;padding:4px 9px;font-weight:800}
+#runner-score-tables{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#runner-score-tables section{background:#eee3c9;border:1px solid #ad9e7d;padding:10px;min-width:0}
+#runner-score-tables h3{font-size:1rem;margin:0 0 5px}
+#runner-score-tables table{width:100%;border-collapse:collapse;font-size:.88rem;text-align:center;font-variant-numeric:tabular-nums}
+#runner-score-tables thead{background:#29465b;color:#f6e5c5}
+#runner-score-tables :is(th,td){padding:4px;border-bottom:1px solid #bcb193}
+#runner-score-tables tbody tr:first-child{background:#f4d799}
+@media(max-width:480px){
+  .runner-lobby-tools{gap:5px}
+  .runner-lobby-tools button{padding-inline:7px;font-size:.76rem}
+  #runner-score-tables{grid-template-columns:minmax(0,1fr)}
+}
+
+.runner-scores{padding-top:0}
+.runner-scores-heading{position:sticky;top:0;z-index:1;display:flex;justify-content:space-between;align-items:center;
+  gap:12px;padding:14px 0 10px;background:#f9edd6}
+.runner-scores-heading h2{margin:0}
+.runner-scores-heading .runner-setup-close{position:static;flex:0 0 38px}
